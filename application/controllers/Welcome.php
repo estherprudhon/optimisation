@@ -19,15 +19,17 @@ class Welcome extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index(){
-		$this->load->model('Optimisation_model');
-
+		//$this->load->model('Optimisation_model');
+		$this->load->view('header');
+		$this->load->view('welcome');
+		$this->load->view('footer');
 		// open the file "demosaved.csv" for writing
-		$file = fopen('stats.csv', 'w');
+		//$file = fopen('stats.csv', 'w');
 		// save the column headers
-		fputcsv($file, array('q1', 'p1', 'q2', 'p2', 'q3', 'p3', 'q4', 'p4', 'q5', 'p5', 'qTotal'));
+		//fputcsv($file, array('q1', 'p1', 'q2', 'p2', 'q3', 'p3', 'q4', 'p4', 'q5', 'p5', 'qTotal'));
 
 		//Getting data from our database
-		for($i=1; $i<=200; $i++){
+		/*for($i=1; $i<=200; $i++){
 			echo('RESOLUTION DU PROBLEME D\'OPTIMISATION DE LA LIGNE '.$i.'<br>');
 			$dataGeneral = $this->Optimisation_model->getQTotalAndNiveauAmont($i);
 			$qTotal = $dataGeneral['qTotal'];
@@ -87,6 +89,6 @@ class Welcome extends CI_Controller {
 			fputcsv($file, $row);
 			}
 			// Close the file
-			fclose($file);
+			fclose($file);*/
 		}
 }
