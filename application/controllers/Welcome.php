@@ -26,6 +26,7 @@ class Welcome extends CI_Controller {
 		// save the column headers
 		fputcsv($file, array('q1', 'p1', 'q2', 'p2', 'q3', 'p3', 'q4', 'p4', 'q5', 'p5', 'qTotal'));
 
+		//Getting data from our database
 		for($i=1; $i<=200; $i++){
 			echo('RESOLUTION DU PROBLEME D\'OPTIMISATION DE LA LIGNE '.$i.'<br>');
 			$dataGeneral = $this->Optimisation_model->getQTotalAndNiveauAmont($i);
@@ -34,9 +35,11 @@ class Welcome extends CI_Controller {
 			echo('Débit à répartir : '.$qTotal.' m3/s<br><br>');
 			echo('Elevaltion Amont : '.$elevAmont.'m');
 			$coeffAval = $this->Optimisation_model->getCoeffElevationAval();
+			//Calculation of the elevAval using our approximation function
 			$elevAval = $coeffAval['p1']*pow($qTotal,2) + $coeffAval['p2']*$qTotal + $coeffAval['p3'];
 
 			//Construction turbine 1 :
+			//The value true represents availability and can be modified
 
 			$dataTurbine = $this->Optimisation_model->getDataTurbine($i,1);
 			$coeffTurbine = $this->Optimisation_model->getCoeffTurbine(1);

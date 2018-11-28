@@ -3,17 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Turbine {
   private $CI;
-  private $id;
-  private $avaibility;
-  private $elevAmont;
-  private $elevAval;
-  private $maxQ;
-  private $coeffProduction;
-  private $stateArray;
-  private $optimalQ;
-  private $optimalProduction;
-  private $optimalProductionSum;
+  private $id; //Turbine number
+  private $avaibility; //Turbine availability
+  private $elevAmont; //elevAmont -> same for every turbine
+  private $elevAval; //elevAval -> same for every turbine
+  private $maxQ; //maximum flow for the turbine
+  private $coeffProduction; //array of the coefficients used to calculate the production
+  private $stateArray; //dynamic program table for the turbine
+  private $optimalQ; //optimal flow for the turbine
+  private $optimalProduction; //optimal production for the turbine
+  private $optimalProductionSum; //optimal production for this and the next ones
 
+  //Constructor
   public function __construct(int $id, int $maxQ = 160, bool $avaibility = true, $coeff = NULL, float $elevAmont = NULL, float $elevAval){
     $this->CI = & get_instance();
     $this->id = $id;
@@ -37,14 +38,17 @@ class Turbine {
     $this->optimalProduction = 0;
   }
 
+  //Setter
   public function setAvaibility(bool $avaibility){
     $this->avaibility = $avaibility;
   }
 
+  //Getter availability
   public function isAvailable() : bool{
     return $this->avaibility;
   }
 
+  //Getters
   public function getId() : int {
     return $this->id;
   }
@@ -69,6 +73,7 @@ class Turbine {
     return $this->stateArray;
   }
 
+  //Method to fill the dynamic program table of the last turbine
   public function fillArrayLastStep($qTotal){
     for($i=0 ; $i<=$qTotal ; $i+=5){
       $this->stateArray[$i] = array($this->production(min($i, $this->maxQ)), min($i, $this->maxQ));
@@ -77,7 +82,7 @@ class Turbine {
     //print_r($this->stateArray);
     //echo('<br><br>');
   }
-
+  //Method to fill the dynamic program table of the intermediate turbines
   public function fillArrayMiddleStep($previousArray, $qTotal){
     for($i=0 ; $i<=$qTotal ; $i+=5){
       $line = array();
@@ -94,6 +99,7 @@ class Turbine {
     //echo('<br><br>');
   }
 
+  //Method to fill the dynamic program table of the first turbine
   public function fillArrayFirstStep($previousArray, $qTotal){
     $line = array();
     for($i=0 ; $i<=$this->maxQ ; $i+=5){
@@ -107,12 +113,15 @@ class Turbine {
     //echo('<br><br>');
   }
 
+  //Function to calculate the optimum, for a given state qLeft
   public function calculateOptimum($qLeft){
     $this->optimalProductionSum = $this->stateArray[$qLeft][0];
     $this->optimalQ = $this->stateArray[$qLeft][1];
     $this->optimalProduction = $this->production($this->optimalQ);
   }
 
+  //Function to calculate hNette and the production, for a given flow q
+  //This function differs for each turbine, due to different coefficients
   private function production($q) : float{
     $hNette = $this->elevAmont - $this->elevAval - 0.5*pow(10, -5)*$q;
     if($q<=0){
