@@ -1,7 +1,5 @@
 .htaccess
 .htpasswd
 index.php
-stats.csv
 
 application/config/config.php
-application/config/database.php
