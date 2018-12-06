@@ -103,7 +103,7 @@ $autoload['helper'] = array('url','assets_helper');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
+$autoload['config'] = array('form_validation');
 
 /*
 | -------------------------------------------------------------------
