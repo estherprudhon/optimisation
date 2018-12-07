@@ -9,13 +9,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<title>Optimisation</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="<?= css_url('materialize') ?>" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <!-- <link href="<?= img_url('favicon.jpg'); ?>" type="image/jpg" rel="icon"/> -->
+	<link href="<?= css_url('style') ?>" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="<?= img_url('turbine.png'); ?>" type="image/jpg" rel="icon"/>
 </head>
 
 <body>
+	<ul id="dropdown1" class="dropdown-content">
+		<li><a href="<?= site_url('app'); ?>">Application</a></li>
+		<li class="divider"></li>
+		<li><a href="<?= site_url('example'); ?>">Exemple</a></li>
+	</ul>
   <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container">
+    <div class="nav-wrapper">
       <a id="logo-container" href="<?= site_url('') ?>" class="brand-logo center"><img src="<?= img_url('logo.png') ?>" alt="Logo" style="height:64px;"></a>
-    </div>
-
+			<ul class="right hide-on-med-and-down">
+	      <!-- Dropdown Trigger -->
+	      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
+	    </ul>
+		</div>
   </nav>

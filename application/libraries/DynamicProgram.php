@@ -41,14 +41,18 @@ public function __construct(&$turbine1 = NULL, &$turbine2 = NULL, &$turbine3 = N
   //Forward pass
   //Picks the optimal solution in each table created during the backward pass
   public function forward() : int{
-    echo('<br><br>'.'Résultats de l\'optimisation de la production d\'énergie par turbine :'.'<br>');
+    //echo('<br><br>'.'Résultats de l\'optimisation de la production d\'énergie par turbine :'.'<br>');
     $qLeft = $this->qTotal;
     for($i=0 ; $i < $this->n ; $i++){
       $this->turbineArray[$i]->calculateOptimum($qLeft);
       $qLeft -= $this->turbineArray[$i]->getOptimalQ();
-      echo("-Pour la turbine ".($this->turbineArray[$i]->getId()).' : '.'<br>'.'Débit optimal Q'.($this->turbineArray[$i]->getId()).' = '.$this->turbineArray[$i]->getOptimalQ().' m3/s');
-      echo( '<br>'.'production (puissance) maximale P'.($this->turbineArray[$i]->getId()). ' = '.$this->turbineArray[$i]->getOptimalProduction().' MWh'.'<br><br>');
+      //echo("-Pour la turbine ".($this->turbineArray[$i]->getId()).' : '.'<br>'.'Débit optimal Q'.($this->turbineArray[$i]->getId()).' = '.$this->turbineArray[$i]->getOptimalQ().' m3/s');
+      //echo( '<br>'.'production (puissance) maximale P'.($this->turbineArray[$i]->getId()). ' = '.$this->turbineArray[$i]->getOptimalProduction().' MWh'.'<br><br>');
     }
     return $qLeft;
+  }
+
+  public function getTurbineArray(){
+    return $this->turbineArray;
   }
 }
