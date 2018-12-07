@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php $countOptimalQ = 0; $countOptimalProduction = 0;
                 foreach ($turbines as $num_turbine => $turbine) { ?>
                   <tr>
-                    <td> Turbine <?= $num_turbine+1; ?></td>
+                    <td> Turbine <?= $num_turbine; ?></td>
                     <td> <?php echo($turbine[0]); $countOptimalQ += $turbine[0]; ?></td>
                     <td> <?php echo($turbine[1]) ;$countOptimalProduction += $turbine[1]; ?></td>
                   </tr>

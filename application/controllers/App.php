@@ -108,7 +108,7 @@ class App extends CI_Controller {
 
 			$turbines = array();
 			foreach ($dp->getTurbineArray() as $num_turbine => $turbine) {
-				$turbines[$num_turbine] = array($turbine->getOptimalQ(), $turbine->getOptimalProduction());
+				$turbines[$turbine->getId()] = array($turbine->getOptimalQ(), $turbine->getOptimalProduction());
 			}
 			$this->load->view('results', array("turbines" => $turbines));
 		}

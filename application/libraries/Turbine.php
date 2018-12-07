@@ -18,9 +18,11 @@ class Turbine {
   public function __construct(int $id, int $maxQ = 160, bool $avaibility = true, $coeff = NULL, float $elevAmont = NULL, float $elevAval){
     $this->CI = & get_instance();
     $this->id = $id;
-    $this->maxQ = $maxQ; //maxQ can be added by the user, its default value is 160
     $this->avaibility = $avaibility;
     $this->stateArray = array();
+
+    //Converts the flow into a multiple of 5
+    $this->maxQ = (int)($maxQ/5)*5; //maxQ can be added by the user, its default value is 160
 
     if(!is_null($coeff)){
       $this->coeffProduction = $coeff;
