@@ -9,12 +9,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<form action="<?= site_url('app'); ?>" method="post">
 						<div class="row">
 		        <div class="input-field col s4 offset-s1">
-		          <input placeholder="0" name="total_flow" id="total_flow" type="number" class="validate" value="<?= set_value('total_flow') ?>">
+		          <input placeholder="0" name="total_flow" id="total_flow" type="number" class="<?= (empty(form_error('total_flow'))) ? "validate" : "invalid" ?>" value="<?= set_value('total_flow') ?>">
 							<?= form_error('total_flow'); ?>
 		          <label for="total_flow">Débit total à turbiner en m³/s</label>
 		        </div>
 						<div class="input-field col s4 offset-s2">
-		          <input placeholder="0" name="upper_elevation" id="upper_elevation" type="number" class="validate" value="<?= set_value('upper_elevation') ?>">
+		          <input placeholder="0" name="upper_elevation" id="upper_elevation" type="number" class="<?= (empty(form_error('upper_elevation'))) ? "validate" : "invalid" ?>" value="<?= set_value('upper_elevation') ?>">
 							<?= form_error('upper_elevation'); ?>
 		          <label for="upper_elevation">Elevation amont en m</label>
 		        </div>
@@ -100,30 +100,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 						<div class="row">
 
-							<div class="col s2 offset-s1" style="text-align:center">
-								<label class="active" for="max_flow1">Débit max en m³/s</label>
-								<input value="160" name="max_flow1" id="max_flow1" type="number" class="validate" style="text-align:right">
+							<div class="input-field col s2 offset-s1" style="text-align:center">
+								<input placeholder="160" value="160" name="max_flow1" id="max_flow1" type="number" class="<?= (empty(form_error('max_flow1'))) ? "validate" : "invalid" ?>" style="text-align:right">
 								<?= form_error('max_flow1'); ?>
+								<label for="max_flow1">Débit max en m³/s</label>
 							</div>
-							<div class="col s2" style="text-align:center">
-								<label class="active" for="max_flow2">Débit max en m³/s</label>
+							<div class="input-field col s2" style="text-align:center">
+								<input placeholder="160" value="160" name="max_flow2" id="max_flow2" type="number" class="<?= (empty(form_error('max_flow2'))) ? "validate" : "invalid" ?>" style="text-align:right">
 								<?= form_error('max_flow2'); ?>
-								<input value="160" name="max_flow2" id="max_flow2" type="number" class="validate" style="text-align:right">
+								<label for="max_flow2">Débit max en m³/s</label>
 							</div>
-							<div class="col s2" style="text-align:center">
-								<label class="active" for="max_flow3">Débit max en m³/s</label>
+							<div class="input-field col s2" style="text-align:center">
+								<input placeholder="160" value="160" name="max_flow3" id="max_flow3" type="number" class="<?= (empty(form_error('max_flow3'))) ? "validate" : "invalid" ?>" style="text-align:right">
 								<?= form_error('max_flow3'); ?>
-								<input value="160" name="max_flow3" id="max_flow3" type="number" class="validate" style="text-align:right">
+								<label for="max_flow3">Débit max en m³/s</label>
 							</div>
-							<div class="col s2" style="text-align:center">
-								<label class="active" for="max_flow4">Débit max en m³/s</label>
+							<div class="input-field col s2" style="text-align:center">
+								<input placeholder="160" value="160" name="max_flow4" id="max_flow4" type="number" class="<?= (empty(form_error('max_flow4'))) ? "validate" : "invalid" ?>" style="text-align:right">
 								<?= form_error('max_flow4'); ?>
-								<input value="160" name="max_flow4" id="max_flow4" type="number" class="validate" style="text-align:right">
+								<label for="max_flow4">Débit max en m³/s</label>
 							</div>
-							<div class="col s2" style="text-align:center">
-								<label class="active" for="max_flow5">Débit max en m³/s</label>
+							<div class="input-field col s2" style="text-align:center">
+								<input placeholder="160" value="160" name="max_flow5" id="max_flow5" type="number" class="<?= (empty(form_error('max_flow5'))) ? "validate" : "invalid" ?>" style="text-align:right">
 								<?= form_error('max_flow5'); ?>
-								<input value="160" name="max_flow5" id="max_flow5" type="number" class="validate" style="text-align:right">
+								<label for="max_flow5">Débit max en m³/s</label>
 							</div>
 						</div>
 

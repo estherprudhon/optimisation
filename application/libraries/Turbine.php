@@ -124,7 +124,7 @@ class Turbine {
 
   //Function to calculate hNette and the production, for a given flow q
   //This function differs for each turbine, due to different coefficients
-  private function production($q) : float{
+  public function production($q) : float{
     $hNette = $this->elevAmont - $this->elevAval - 0.5*pow(10, -5)*$q;
     if($q<=0){
       $ret = 0;

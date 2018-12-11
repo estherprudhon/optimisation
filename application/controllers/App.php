@@ -9,17 +9,42 @@ class App extends CI_Controller {
 	public function index(){
 		$this->load->view('header');
 
-		$count_checked_turbines = 0;
-		for($i = 1 ; $i <= 5 ; $i++){
-			if($this->input->post("is_turbine".$i)){
-				$count_checked_turbines++;
-			}
-		}
-
-		if ($count_checked_turbines >= 2 && $this->input->post('results')) {
+		if ($this->input->post('results')) {
 			if ($this->form_validation->run('results')) {
-				 $this->results();
+				$count_checked_turbines = 0;
+				$turbine_id;
+				for($i = 1 ; $i <= 5 ; $i++){
+					if($this->input->post("is_turbine".$i)){
+						$count_checked_turbines++;
+						$turbine_id = $i;
+					}
 				}
+				if($count_checked_turbines >= 2){
+					$this->results();
+				}
+				// Cas particulier pour une seule turbine :
+				else if($count_checked_turbines == 1) {
+					$this->load->model('Optimisation_model');
+					$elevAmont = $this->input->post("upper_elevation");
+					$qTotal = $this->input->post("total_flow");
+					$max_flow = $this->input->post("max_flow".$turbine_id);
+					$coeffTurbine = $this->Optimisation_model->getCoeffTurbine($turbine_id);
+					$coeffAval = $this->Optimisation_model->getCoeffElevationAval();
+					$elevAval = $coeffAval['p1']*pow($qTotal,2) + $coeffAval['p2']*$qTotal + $coeffAval['p3'];
+
+					if($max_flow > $qTotal){
+						$max_flow = $qTotal;
+					}
+					$turbine_for_prod = new Turbine($turbine_id, $max_flow, true, $coeffTurbine, $elevAmont, $elevAval);
+					$optimal_prod = $turbine_for_prod->production($max_flow);
+					$turbine[$turbine_id] = array($max_flow, $optimal_prod);
+					$this->load->view('results', array("turbines" => $turbine));
+				}
+				//Fin du cas particulier
+				else {
+					$this->load->view('application');
+				}
+			}
 				else $this->load->view('application');
 			}
 		else{
