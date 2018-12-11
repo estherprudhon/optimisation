@@ -12,6 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <p>Bienvenue sur notre application qui va vous permettre d'optimiser
 						les charges des turbines en temps réel pour la centrale
 						hydro-électrique Chutes du Diable.</p>
+          <p>Un projet d'Eshter Prudhon-Delagrange et Orann WEBER.</p>
         </div>
         <div class="card-action">
           <a href="<?= site_url('app'); ?>">Accéder à l'application temps réel</a>
