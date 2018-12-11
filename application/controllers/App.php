@@ -38,6 +38,27 @@ class App extends CI_Controller {
 					$turbine_for_prod = new Turbine($turbine_id, $max_flow, true, $coeffTurbine, $elevAmont, $elevAval);
 					$optimal_prod = $turbine_for_prod->production($max_flow);
 					$turbine[$turbine_id] = array($max_flow, $optimal_prod);
+
+					// open the file "demosaved.csv" for writing
+					$file = fopen('resultats.csv', 'w');
+					// save the column headers
+					fputcsv($file, array('q1', 'p1', 'q2', 'p2', 'q3', 'p3', 'q4', 'p4', 'q5', 'p5', 'qTotal', 'pTotal'));
+					$row = array();
+					for($i=1 ; $i<=5 ; $i++){
+						if($turbine_id == $i){
+							array_push($row, $max_flow);
+							array_push($row, $optimal_prod);
+						} else {
+							array_push($row, 0);
+							array_push($row, 0);
+						}
+					}
+					array_push($row, $max_flow);
+					array_push($row, $optimal_prod);
+					// save each row of the data
+					fputcsv($file, $row);
+					// Close the file
+					fclose($file);
 					$this->load->view('results', array("turbines" => $turbine));
 				}
 				//Fin du cas particulier
@@ -58,7 +79,7 @@ class App extends CI_Controller {
 			// open the file "demosaved.csv" for writing
 			$file = fopen('resultats.csv', 'w');
 			// save the column headers
-			fputcsv($file, array('q1', 'p1', 'q2', 'p2', 'q3', 'p3', 'q4', 'p4', 'q5', 'p5', 'qTotal'));
+			fputcsv($file, array('q1', 'p1', 'q2', 'p2', 'q3', 'p3', 'q4', 'p4', 'q5', 'p5', 'qTotal', 'pTotal'));
 
 			$elevAmont = $this->input->post("upper_elevation");
 			$qTotal = $this->input->post("total_flow");
@@ -119,13 +140,16 @@ class App extends CI_Controller {
 			$qLeft = $dp->forward();
 			//echo('Débit restant à turbiner : '.$qLeft.' à 5m3/s près.<br><br>');
 
+			$pTotal = $turbine1->getOptimalProduction()+$turbine2->getOptimalProduction()+$turbine3->getOptimalProduction()
+			+$turbine4->getOptimalProduction()+$turbine5->getOptimalProduction();
+
 			// Sample data. This can be fetched from mysql too
 			$row = array($turbine1->getOptimalQ(), $turbine1->getOptimalProduction(),
 									 $turbine2->getOptimalQ(), $turbine2->getOptimalProduction(),
 									 $turbine3->getOptimalQ(), $turbine3->getOptimalProduction(),
 									 $turbine4->getOptimalQ(), $turbine4->getOptimalProduction(),
 									 $turbine5->getOptimalQ(), $turbine5->getOptimalProduction(),
-								 	 $qTotal);
+								 	 $qTotal, $pTotal);
 			// save each row of the data
 			fputcsv($file, $row);
 			// Close the file

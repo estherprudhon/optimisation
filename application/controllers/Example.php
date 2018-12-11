@@ -12,7 +12,7 @@ class Example extends CI_Controller {
     // open the file "demosaved.csv" for writing
 		$file = fopen('exemple_resultats.csv', 'w');
 		// save the column headers
-		fputcsv($file, array('q1', 'p1', 'q2', 'p2', 'q3', 'p3', 'q4', 'p4', 'q5', 'p5', 'qTotal'));
+		fputcsv($file, array('q1', 'p1', 'q2', 'p2', 'q3', 'p3', 'q4', 'p4', 'q5', 'p5', 'qTotal', 'pTotal'));
 
     $data_turbine1 = array();
     $data_turbine2 = array();
@@ -69,13 +69,16 @@ class Example extends CI_Controller {
 			$qLeft = $dp->forward();
 			//echo('Débit restant à turbiner : '.$qLeft.' à 5m3/s près.<br><br>');
 
+			$pTotal = $turbine1->getOptimalProduction()+$turbine2->getOptimalProduction()+$turbine3->getOptimalProduction()
+			+$turbine4->getOptimalProduction()+$turbine5->getOptimalProduction();
+
 			// Sample data. This can be fetched from mysql too
 			$row = array($turbine1->getOptimalQ(), $turbine1->getOptimalProduction(),
 									 $turbine2->getOptimalQ(), $turbine2->getOptimalProduction(),
 									 $turbine3->getOptimalQ(), $turbine3->getOptimalProduction(),
 									 $turbine4->getOptimalQ(), $turbine4->getOptimalProduction(),
 									 $turbine5->getOptimalQ(), $turbine5->getOptimalProduction(),
-								 	 $qTotal);
+								 	 $qTotal, $pTotal);
 			// save each row of the data
 			fputcsv($file, $row);
       $data_turbine1[$i-1] = array('x' => $i, 'y' => $turbine1->getOptimalQ());
