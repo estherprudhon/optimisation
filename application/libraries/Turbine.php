@@ -15,7 +15,7 @@ class Turbine {
   private $optimalProductionSum; //optimal production for this and the next ones
 
   //Constructor
-  public function __construct(int $id, int $maxQ = 160, bool $avaibility = true, $coeff = NULL, float $elevAmont = NULL, float $elevAval){
+  public function __construct(int $id, int $maxQ, bool $avaibility = true, $coeff = NULL, float $elevAmont = NULL, float $elevAval){
     $this->CI = & get_instance();
     $this->id = $id;
     $this->avaibility = $avaibility;
@@ -104,7 +104,7 @@ class Turbine {
   //Method to fill the dynamic program table of the first turbine
   public function fillArrayFirstStep($previousArray, $qTotal){
     $line = array();
-    for($i=0 ; $i<=$this->maxQ ; $i+=5){
+    for($i=0 ; $i<=min($this->maxQ, $qTotal)  ; $i+=5){
       $line[$i] = (($this->production($i))+($previousArray[$qTotal-$i][0]));
     }
     $optimalValue = max($line);
@@ -128,12 +128,16 @@ class Turbine {
     $hNette = $this->elevAmont - $this->elevAval - 0.5*pow(10, -5)*$q;
     if($q<=0){
       $ret = 0;
-    }else{
-    $ret = $this->coeffProduction['p00'] + $this->coeffProduction['p10']*$hNette +
-    $this->coeffProduction['p01']*$q + $this->coeffProduction['p20']*pow($hNette,2) +
-    $this->coeffProduction['p11']*$hNette*$q + $this->coeffProduction['p02']*pow($q,2) +
-    $this->coeffProduction['p30']*pow($hNette,3) + $this->coeffProduction['p21']*pow($hNette,2)*$q +
-    $this->coeffProduction['p12']*$hNette*pow($q,2) + $this->coeffProduction['p03']*pow($q,3);
+    }
+    else{
+      if($q > 185){
+        $q=185;
+      }
+      $ret = round($this->coeffProduction['p00'] + $this->coeffProduction['p10']*$hNette +
+      $this->coeffProduction['p01']*$q + $this->coeffProduction['p20']*pow($hNette,2) +
+      $this->coeffProduction['p11']*$hNette*$q + $this->coeffProduction['p02']*pow($q,2) +
+      $this->coeffProduction['p30']*pow($hNette,3) + $this->coeffProduction['p21']*pow($hNette,2)*$q +
+      $this->coeffProduction['p12']*$hNette*pow($q,2) + $this->coeffProduction['p03']*pow($q,3),3);
   }
     return $ret;
   }

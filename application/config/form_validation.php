@@ -14,32 +14,32 @@ $config = array(
     array(
       'field' => 'upper_elevation',
       'label' => 'upper_elevation',
-      'rules' => 'required|is_natural_no_zero'
+      'rules' => 'is_natural'
     ),
     array(
       'field' => 'max_flow1',
       'label' => 'max_flow1',
-      'rules' => 'is_natural_no_zero'
+      'rules' => 'is_natural'
     ),
     array(
       'field' => 'max_flow2',
       'label' => 'max_flow2',
-      'rules' => 'is_natural_no_zero'
+      'rules' => 'is_natural'
     ),
     array(
       'field' => 'max_flow3',
       'label' => 'max_flow3',
-      'rules' => 'is_natural_no_zero'
+      'rules' => 'is_natural'
     ),
     array(
       'field' => 'max_flow4',
       'label' => 'max_flow4',
-      'rules' => 'is_natural_no_zero'
+      'rules' => 'is_natural'
     ),
     array(
       'field' => 'max_flow5',
       'label' => 'max_flow5',
-      'rules' => 'is_natural_no_zero'
+      'rules' => 'is_natural'
     )
   )
 );

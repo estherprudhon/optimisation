@@ -91,47 +91,68 @@ class App extends CI_Controller {
 
 			//Construction turbine 1 :
 			if($this->input->post("is_turbine1")){
-				$max_flow1 = $this->input->post("max_flow1");
+				if($this->input->post("max_flow1") == ""){
+					$max_flow1 = $qTotal;
+				} else {
+					$max_flow1 = $this->input->post("max_flow1");
+				}
+
 				$coeffTurbine = $this->Optimisation_model->getCoeffTurbine(1);
 				$turbine1 = new Turbine(1, $max_flow1, true, $coeffTurbine, $elevAmont, $elevAval);
 			} else {
-				$turbine1 = new Turbine(1, 160, false, 0, $elevAmont, $elevAval);
+				$turbine1 = new Turbine(1, 0, false, 0, $elevAmont, $elevAval);
 			}
 
 			//Construction turbine 2 :
 			if($this->input->post("is_turbine2")){
-				$max_flow2 = $this->input->post("max_flow2");
+				if($this->input->post("max_flow2") == ""){
+					$max_flow2 = $qTotal;
+				} else {
+					$max_flow2 = $this->input->post("max_flow2");
+				}
 				$coeffTurbine = $this->Optimisation_model->getCoeffTurbine(2);
 				$turbine2 = new Turbine(2, $max_flow2, true, $coeffTurbine, $elevAmont, $elevAval);
 			} else {
-				$turbine2 = new Turbine(2, 160, false, 0, $elevAmont, $elevAval);
+				$turbine2 = new Turbine(2, 0, false, 0, $elevAmont, $elevAval);
 			}
 
 			//Construction turbine 3 :
 			if($this->input->post("is_turbine3")){
-				$max_flow3 = $this->input->post("max_flow3");
+				if($this->input->post("max_flow3") == ""){
+					$max_flow3 = $qTotal;
+				} else {
+					$max_flow3 = $this->input->post("max_flow3");
+				}
 				$coeffTurbine = $this->Optimisation_model->getCoeffTurbine(3);
 				$turbine3 = new Turbine(3, $max_flow3, true, $coeffTurbine, $elevAmont, $elevAval);
 			} else {
-				$turbine3 = new Turbine(3, 160, false, 0, $elevAmont, $elevAval);
+				$turbine3 = new Turbine(3, 0, false, 0, $elevAmont, $elevAval);
 			}
 
 			//Construction turbine 4 :
 			if($this->input->post("is_turbine4")){
-				$max_flow4 = $this->input->post("max_flow4");
+				if($this->input->post("max_flow4") == ""){
+					$max_flow4 = $qTotal;
+				} else {
+					$max_flow4 = $this->input->post("max_flow4");
+				}
 				$coeffTurbine = $this->Optimisation_model->getCoeffTurbine(4);
 				$turbine4 = new Turbine(4, $max_flow4, true, $coeffTurbine, $elevAmont, $elevAval);
 			} else {
-				$turbine4 = new Turbine(4, 160, false, 0, $elevAmont, $elevAval);
+				$turbine4 = new Turbine(4, 0, false, 0, $elevAmont, $elevAval);
 			}
 
 			//Construction turbine 5 :
 			if($this->input->post("is_turbine5")){
-				$max_flow5 = $this->input->post("max_flow5");
+				if($this->input->post("max_flow5") == ""){
+					$max_flow5 = $qTotal;
+				} else {
+					$max_flow5 = $this->input->post("max_flow5");
+				}
 				$coeffTurbine = $this->Optimisation_model->getCoeffTurbine(5);
 				$turbine5 = new Turbine(5, $max_flow5, true, $coeffTurbine, $elevAmont, $elevAval);
 			} else {
-				$turbine5 = new Turbine(5, 160, false, 0, $elevAmont, $elevAval);
+				$turbine5 = new Turbine(5, 0, false, 0, $elevAmont, $elevAval);
 			}
 
 			$dp = new DynamicProgram($turbine1, $turbine2, $turbine3, $turbine4, $turbine5, $qTotal);
